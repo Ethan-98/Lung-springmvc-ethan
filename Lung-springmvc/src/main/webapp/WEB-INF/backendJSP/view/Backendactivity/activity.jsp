@@ -84,7 +84,8 @@ String path = request.getContextPath();
 											<tr>
 												<td>${activity.ac_id}</td>
 												<td>${activity.ac_name}</td>
-												<td><img src="<c:url value='/Backendactivity/picture/${activity.ac_id}'/>"/> </td>
+<%-- 												<td><img style=" border-radius : 0px ; width:50px" src="<c:url value='/Backendactivity/picture/${activity.ac_id}'/>"/> </td> --%>
+												<td><img style=" border-radius : 0px ; width:50px ;height:auto"src="<c:url value='/ActivityImage/${activity.localfileName}'/>"/> </td>
 												<td>${activity.ac_date}</td>
 												<td>${activity.ac_participant}</td>
 												<td>${activity.ac_venue}</td>

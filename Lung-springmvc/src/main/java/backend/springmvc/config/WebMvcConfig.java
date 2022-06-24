@@ -33,6 +33,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
             .addResourceHandler("/URLToReachResourcesFolder/**")
             .addResourceLocations("/resources/");
         registry.addResourceHandler("/localImage/**").addResourceLocations("/resources/images/memberHeadshot/");
+        registry.addResourceHandler("/ActivityImage/**").addResourceLocations("/resources/images/activityImage/");
         // 專案/headshot
         // 專案/ member /list
     }

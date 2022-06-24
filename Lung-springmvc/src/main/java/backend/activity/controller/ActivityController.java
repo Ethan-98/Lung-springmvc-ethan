@@ -89,59 +89,59 @@ public class ActivityController {
 	}
 
 	// 讓「查詢頁面」可以取得db中的BLOB圖片欄
-		@GetMapping("/picture/{ac_id}")
-		public ResponseEntity<byte[]> getPicture(@PathVariable("ac_id") Integer ac_id) {
-			byte[] body = null;
-			ResponseEntity<byte[]> responseEntity = null;
-			MediaType mediaType = null;
-			HttpHeaders headers = new HttpHeaders();
-			headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-			ActivityBean activity = ActivityService.findById(ac_id);
-
-			// 沒有會員資料
-			if(activity == null) {
-				return new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND);
-			}else {
-			// 有會員資料
-				String localfilename = activity.getLocalfileName();
-				// 有local檔名 -> 因為csv直接匯入 || 有新增照片
-				if(localfilename != null) {
-					// 設定ResponseHeaders
-					/* 透過檔名 setContentType(MediaType) */
-					if (localfilename.toLowerCase().endsWith("jfif")) {
-						mediaType = MediaType.valueOf(ctx.getMimeType("dummy.jpeg"));
-					} else {
-						mediaType = MediaType.valueOf(ctx.getMimeType(localfilename));
-						headers.setContentType(mediaType);
-					}
-					// 設定ResponseBody
-					body = fileToByteArray("/resources/images/activityImage/" + localfilename);	
-				}else {
-				//沒有local檔名 -> 新增不傳圖片 -> 所以要顯示預設圖片
-					body = fileToByteArray("/resources/images/memberHeadshot/defaultHeadshot.jpg");  //如果圖片為空，就上傳預設圖片
-				}
-				responseEntity = new ResponseEntity<byte[]>(body, headers, HttpStatus.OK);
-				return responseEntity;
-			}	
-		}
+//		@GetMapping("/picture/{ac_id}")
+//		public ResponseEntity<byte[]> getPicture(@PathVariable("ac_id") Integer ac_id) {
+//			byte[] body = null;
+//			ResponseEntity<byte[]> responseEntity = null;
+//			MediaType mediaType = null;
+//			HttpHeaders headers = new HttpHeaders();
+//			headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+//			ActivityBean activity = ActivityService.findById(ac_id);
+//
+//			// 沒有會員資料
+//			if(activity == null) {
+//				return new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND);
+//			}else {
+//			// 有會員資料
+//				String localfilename = activity.getLocalfileName();
+//				// 有local檔名 -> 因為csv直接匯入 || 有新增照片
+//				if(localfilename != null) {
+//					// 設定ResponseHeaders
+//					/* 透過檔名 setContentType(MediaType) */
+//					if (localfilename.toLowerCase().endsWith("jfif")) {
+//						mediaType = MediaType.valueOf(ctx.getMimeType("dummy.jpeg"));
+//					} else {
+//						mediaType = MediaType.valueOf(ctx.getMimeType(localfilename));
+//						headers.setContentType(mediaType);
+//					}
+//					// 設定ResponseBody
+//					body = fileToByteArray("/resources/images/activityImage/" + localfilename);	
+//				}else {
+//				//沒有local檔名 -> 新增不傳圖片 -> 所以要顯示預設圖片
+//					body = fileToByteArray("/resources/images/memberHeadshot/defaultHeadshot.jpg");  //如果圖片為空，就上傳預設圖片
+//				}
+//				responseEntity = new ResponseEntity<byte[]>(body, headers, HttpStatus.OK);
+//				return responseEntity;
+//			}	
+//		}
 			
 
 
-		private byte[] fileToByteArray(String path) {
-			byte[] result = null;
-			try (InputStream is = ctx.getResourceAsStream(path);
-					ByteArrayOutputStream baos = new ByteArrayOutputStream();) {
-				byte[] b = new byte[819200];
-				int len = 0;
-				while ((len = is.read(b)) != -1) {
-					baos.write(b, 0, len);
-				}
-				result = baos.toByteArray();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return result;
-		}
+//		private byte[] fileToByteArray(String path) {
+//			byte[] result = null;
+//			try (InputStream is = ctx.getResourceAsStream(path);
+//					ByteArrayOutputStream baos = new ByteArrayOutputStream();) {
+//				byte[] b = new byte[819200];
+//				int len = 0;
+//				while ((len = is.read(b)) != -1) {
+//					baos.write(b, 0, len);
+//				}
+//				result = baos.toByteArray();
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//			return result;
+//		}
 
 		public byte[] blobToByteArray(Blob blob) {
 			byte[] result = null;

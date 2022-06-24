@@ -48,7 +48,7 @@
                     </div>
                      <div class="form-group">
                      <label for="productImage"> <span>活動照片</span> 
- 					<form:input type="file" path="productImage" cssClass="form-control" id="ac_image" onchange="previewImage(event)" accept="image/*"/> 
+ 					<form:input type="file" path="productImage" cssClass="form-control" id="mi_headshot" onchange="previewHeadshot(event)" accept="image/*"/> 
 					<img id="blah" src="<c:url value='/Backendactivity/picture/${activity.ac_id}'/>" style="width:200px" alt="choose one">
 					</label>
                     </div>
@@ -102,12 +102,26 @@
 		window.location.href = "./activitylist"
 	}
 	
-	function previewImage(event) {
-		const[file] = document.getElementById("ac_image").files
-	    if (files) {
-	        document.getElementById("blah").src = URL.createObjectURL(file)
-	    }
+	// 顯示選取的照片
+	function previewHeadshot(event) {
+		/*
+		files = ['src'] 
+		法一:
+			const file = files[0] -> file = 'src'
+		法二:
+			const [file] = files -> file = 'src'
+		*/
+	  const [file] = document.getElementById("mi_headshot").files
+	  if (file) {
+		  document.getElementById("blah").src = URL.createObjectURL(file)
+	  }
 	}
+// 	function previewImage(event) {
+// 		const[file] = document.getElementById("ac_image").files
+// 	    if (files) {
+// 	        document.getElementById("blah").src = URL.createObjectURL(file)
+// 	    }
+// 	}
 	
 	function add(){
 		var form = document.getElementById("form").value;
